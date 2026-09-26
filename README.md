@@ -83,7 +83,7 @@ cache="${XDG_CACHE_HOME:-$HOME/.cache}/rails-refdocs/$ref"
 if [[ ! -x "$cache/rails-refdocs" ]]; then
   mkdir -p "$(dirname "$cache")"
   tmp="$(mktemp -d "$cache.XXXXXX")"
-  git clone --quiet --depth 1 --branch "$ref" https://github.com/Common-Pattern/rails-refdocs "$tmp"
+  git -c advice.detachedHead=false clone --quiet --depth 1 --branch "$ref" https://github.com/Common-Pattern/rails-refdocs "$tmp"
   mv -T "$tmp" "$cache" 2>/dev/null || rm -rf "$tmp"
 fi
 REFDOCS_COMMAND=scripts/refdocs exec "$cache/rails-refdocs" --dir "$root/reference" "$@"
