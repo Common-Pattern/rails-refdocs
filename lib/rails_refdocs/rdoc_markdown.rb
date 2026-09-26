@@ -2,17 +2,15 @@ require "rdoc"
 require "fileutils"
 
 class RDoc::Markup::ToReferenceMarkdown < RDoc::Markup::ToMarkdown
-  if RDoc::Markup::ToMarkdown.method_defined?(:handle_tag)
-    def add_tag(_tag, simple_tag, content)
-      emit_inline("#{simple_tag}#{content}#{simple_tag}")
-    end
+  def add_tag(_tag, simple_tag, content)
+    emit_inline("#{simple_tag}#{content}#{simple_tag}")
+  end
 
-    def handle_tag(nodes, simple_tag, tag)
-      return super if nodes.size == 1 && String === nodes[0]
-      emit_inline(simple_tag)
-      traverse_inline_nodes(nodes)
-      emit_inline(simple_tag)
-    end
+  def handle_tag(nodes, simple_tag, tag)
+    return super if nodes.size == 1 && String === nodes[0]
+    emit_inline(simple_tag)
+    traverse_inline_nodes(nodes)
+    emit_inline(simple_tag)
   end
 end
 

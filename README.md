@@ -36,7 +36,7 @@ Linux and macOS (rdoc runs in a forked process).
 ```ruby
 # Gemfile
 group :development do
-  gem "rails-refdocs", github: "Common-Pattern/rails-refdocs", tag: "v0.2.0"
+  gem "rails-refdocs", "~> 0.2"
 end
 ```
 
@@ -112,12 +112,12 @@ rails-refdocs --dir path/to/app/reference update
 
 ## Output
 
-The generated Ruby and Rails API files come from the rdoc in the app's bundle,
-so everyone on one lockfile gets the same files. Newer rdoc releases parse
-some sources differently; after an rdoc upgrade run
+The generated Ruby and Rails API files come from rdoc 8 (the rdoc a Rails 8
+app gets through irb), at the version in the app's `Gemfile.lock`, so
+everyone on one lockfile gets the same files. After an rdoc upgrade run
 `bin/refdocs update --force ruby rails`. Markdown is written with backticks
-and `*`/`**` on every rdoc version (rdoc 7.1 and later otherwise fall back to
-`<code>` and `<strong>` tags).
+and `*`/`**` (rdoc's own Markdown writer falls back to `<code>` and
+`<strong>` tags).
 
 The PostgreSQL converter reproduces the output of pandoc (`gfm-raw_html`,
 `--wrap=none`, with the Lua filter the 0.1 script used): for the 18.6 manual,
@@ -154,6 +154,18 @@ version, `lock_gem`.
 bundle install
 bundle exec rake test
 ```
+
+## Releasing
+
+Bump `RailsRefdocs::VERSION`, add a `CHANGELOG.md` entry, merge to `main`,
+then push a tag for that commit:
+
+```sh
+git tag v0.2.0 && git push origin v0.2.0
+```
+
+`.github/workflows/release.yml` runs the tests and publishes the gem to
+rubygems.org through trusted publishing; no API key is stored anywhere.
 
 The Bash script this gem replaces is at the `v0.1.0` tag.
 
