@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "rails_refdocs"
+
+exit RailsRefdocs::CLI.start(ARGV, command: ENV.fetch("REFDOCS_COMMAND", "bin/refdocs"))
