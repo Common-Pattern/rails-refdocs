@@ -36,7 +36,7 @@ Linux and macOS (rdoc runs in a forked process).
 ```ruby
 # Gemfile
 group :development do
-  gem "rails-refdocs", "~> 0.2"
+  gem "rails-refdocs", github: "Common-Pattern/rails-refdocs", tag: "v0.2.0"
 end
 ```
 
@@ -157,15 +157,16 @@ bundle exec rake test
 
 ## Releasing
 
-Bump `RailsRefdocs::VERSION`, add a `CHANGELOG.md` entry, merge to `main`,
-then push a tag for that commit:
+The gem is not on rubygems.org; apps install it from a git tag. Bump
+`RailsRefdocs::VERSION`, add a `CHANGELOG.md` entry, merge to `main`, then
+tag that commit:
 
 ```sh
 git tag v0.2.0 && git push origin v0.2.0
 ```
 
-`.github/workflows/release.yml` runs the tests and publishes the gem to
-rubygems.org through trusted publishing; no API key is stored anywhere.
+Apps move to a release by changing `tag:` in their Gemfile. Bundler needs
+git to install a gem from a git source.
 
 The Bash script this gem replaces is at the `v0.1.0` tag.
 

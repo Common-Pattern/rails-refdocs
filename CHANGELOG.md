@@ -14,6 +14,8 @@
 - Rake tasks `refdocs:update`, `refdocs:check`, `refdocs:locked`,
   `refdocs:link`, and the `rails_refdocs:install` generator.
 - Requires rdoc 8.
+- Installed from the git tag (`github: "Common-Pattern/rails-refdocs",
+  tag: "v0.2.0"`); not published to rubygems.org.
 
 ## 0.1.0
 
